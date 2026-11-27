@@ -30,17 +30,12 @@ external FPSC corpus.
 
 ## Caveats
 
-1. **Missing dependencies in `requirements.txt`.** The repo-root
-   `requirements.txt` does not list `requests` and `beautifulsoup4`, which
-   `scrape_votes.py` imports. Install them explicitly:
-   `pip install pandas pyarrow requests beautifulsoup4`
-   (add them to `requirements.txt` if you publish it).
-2. **Output paths are relative to the run location.** `scrape_votes.py` writes to
+1. **Output paths are relative to the run location.** `scrape_votes.py` writes to
    `--out` (default `../data`) and `common.py` derives its output paths from its own
    location. If you run the scripts from inside `data/`, generated files (CSVs,
    parquet, `scrape_log.json`, raw HTML cache, `speeches.json`) land in that same
    folder — keep the published folder code-only and let outputs go elsewhere.
-3. **No data is bundled here.** Voting data is scraped from logting.fo at run time;
+2. **No data is bundled here.** Voting data is scraped from logting.fo at run time;
    speech data comes from the external FPSC dataset (CC-BY-4.0, `davidilag/FPSC`).
 
 ## dense_embeddings caveats
@@ -55,15 +50,6 @@ external FPSC corpus.
    which is not published here. The paper uses the **voters axis** only
    (`--axis voters`, the default), which needs just the FPSC speeches + scraped
    votes.
-3. **Canonical copy.** The repo contained three near-identical copies of this
-   pipeline (`scripts_dense_embeddings/`,
-   `speech_vote_agreement/embedding_stance_rocm/`, `models/embedding_stance_rocm/`).
-   The published set is the `scripts_dense_embeddings/` versions plus
-   `make_model_fig.py` (only present in the `speech_vote_agreement/` copy), which
-   generates `fig_model_auc`.
-4. **Deliberately excluded:** `.venv/`, `uv.lock` (exact pins remain available in
-   the repo), `data/`, `figures/`, `*.html`, `*.log`. Run scripts expect the
-   `scripts/` subfolder layout, which is preserved here.
 
 ## text_analysis caveats
 
@@ -79,14 +65,3 @@ external FPSC corpus.
 
 ## network_analysis caveats
 
-1. **The notebooks import the local `src/` modules** (`from networks import ...`
-   etc.), so keep `src/` next to `notebooks/` and put `src/` on `sys.path`
-   (or run with `PYTHONPATH=src`) — the layout here is preserved from the repo.
-2. **Inputs:** the notebooks read the scraped voting data (`data/*.parquet`) and
-   intermediate CSV/JSON outputs produced by earlier notebook runs — run `data/`
-   scripts first, and run the notebooks in order (02 → 04 → 05).
-3. **Dependencies:** `networkx`, `pandas`, `numpy`, `scipy`, `scikit-learn`,
-   `matplotlib` (all in the repo-root `requirements.txt`).
-4. **Deliberately excluded:** `networks/audit/` — audit scripts, reports and
-   recalculated-result CSV/JSON files (verification artifacts, partly data files);
-   available in the repo if needed.
