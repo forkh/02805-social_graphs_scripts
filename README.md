@@ -16,10 +16,15 @@ external FPSC corpus.
     (`davidilag/FPSC`, CC-BY-4.0) into `speeches.json`
   - `common.py` — shared path constants and loader helpers (**required** by
     `fetch_fpsc.py`; keep it in the same folder)
-- `network_analysis/` — voting/speaking-order network analysis: `notebooks/`
-  (`02_network_analysis.ipynb`, `04_temporal_network_analysis.ipynb`,
-  `05_network_visualizations.ipynb`), `src/` (`networks.py`, `temporal.py`,
-  `plotting.py` — imported by the notebooks), `README.md`
+- `network_analysis/` — self-contained reproduction of the voting/speaking-order
+  network analyses from the scraped data only: `run_all.py` runs the steps
+  (`voting_network.py`, `temporal_network.py`, `speaking_order.py`,
+  `formal_roles.py`, `alternation.py`, `fig1.py`) plus the helper modules
+  (`config.py`, `roles.py`, `netlib.py`, `speaking_lib.py`, `auditlib.py`,
+  `within_bloc.py`, `figstyle.py`). Run `python network_analysis/run_all.py`
+  from the folder that contains `data/` and `network_analysis/`; see
+  `network_analysis/README.md` for the run order, the expected output
+  checksums and where the reported numbers come from
 - `dense_embeddings/` — dense-vector / ROCm embedding pipeline: `scripts/`
   (`analyze_rocm.py`, `embed_rocm.py`, `common.py`, `fetch_fpsc.py`,
   `pretrain_fobert_mlm.py`, `make_models.py`, `make_findings.py`,
@@ -64,4 +69,15 @@ external FPSC corpus.
    `scikit-learn`, `scipy`, `matplotlib`) plus `jupyterlab`/`ipykernel` to run it.
 
 ## network_analysis caveats
+
+1. **Data is read-only.** The scripts read `data/*.parquet`, `data/*.csv` and
+   `data/fpsc/fpsc_train_metadata.parquet`; all outputs go to
+   `reproduce_networks_outputs/` next to `data/` (already in `.gitignore`).
+   `run_all.py` stops if any file outside the output folder is created, changed
+   or deleted, so the inputs cannot be modified accidentally.
+2. **Dependencies:** Python 3.12.2 with numpy, pandas, pyarrow, scipy, networkx,
+   matplotlib and scikit-learn (exact versions in `network_analysis/README.md`).
+   Runtime is about 9–10 minutes on a laptop; fixed seeds are used throughout,
+   and `network_analysis/README.md` lists the expected SHA-256 of every key
+   output file, so a successful run can be checked byte-for-byte.
 
