@@ -20,3 +20,5 @@ dense_embeddings/**/data/
 *.npz
 results.jsonl
 *.log
+reproduce_networks_outputs*/
+__pycache__/
