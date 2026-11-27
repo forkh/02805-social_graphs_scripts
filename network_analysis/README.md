@@ -1,4 +1,4 @@
-# reproduce_networks
+# network_analysis
 
 Self-contained reproduction of the network analyses, from the original datasets in `data/` only.
 
@@ -19,9 +19,9 @@ Python 3.12.2; numpy 2.5.4, pandas 3.1.1, pyarrow 26.0.1, scipy 1.18.1, networkx
 
 ## Run
 
-From the folder that contains `data/` and `reproduce_networks/`:
+From the folder that contains `data/` and `network_analysis/`:
 
-    python reproduce_networks/run_all.py
+    python network_analysis/run_all.py
 
 All outputs go to `reproduce_networks_outputs/` next to `data/` (suggested `.gitignore` line: `reproduce_networks_outputs/`).
 Each step runs in a fresh Python process; the run stops if any file outside the output folder is created, changed or deleted
