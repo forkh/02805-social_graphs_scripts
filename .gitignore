@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Run-time data outputs (produced by the data/ scripts; never commit data)
+data/*.parquet
+data/*.csv
+data/raw/
+data/scrape_log.json
+data/scrape_run.log
+data/validation_report.txt
+data/speeches.json
+dense_embeddings/data/
+
+# Analysis/embedding outputs
+network_analysis/outputs/
+network_analysis/reports/
+dense_embeddings/**/data/
+*.npz
+results.jsonl
+*.log
